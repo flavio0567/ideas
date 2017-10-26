@@ -1,0 +1,14 @@
+<article>
+
+<h4>Name: <%= @user.name %> </h4>
+<h4>Name: <%= @user.alias %> </h4>
+<h4>Name: <%= @user.email %> </h4>
+</br></br></br>
+<hr>
+
+<p><b>Total Number of Posts:</b><%= @posts.count %></p>
+<p><b>Total Number of Likes:</b><%= @user.joins.count %></p>
+
+
+<%= link_to "Bright Ideas", bright_ideas_path %>
+</article>

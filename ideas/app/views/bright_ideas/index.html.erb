@@ -1,0 +1,40 @@
+<h2>Hello, <%= current_user.alias  %>!</h2>
+
+<div class="left-side">
+
+	<div class="user menu col-xs-24">
+	   <form action='/bright_ideas/create' style="border:1px solid #ccc" method='POST'>
+	      <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+	      <div>
+	        <textarea class="form-control" rows="3" name="content" required></textarea>
+		  </div>
+
+	      <div class="clearfix">
+	        <button type="submit" disable_with="Please wait..." class="signupbtn">Idea!</button>
+	      </div>
+	   </form>
+	</div>
+
+
+	<% if @posts %>
+	  <% @posts.each do |post| %>
+		  <a href="/users/<%= post.user_id %>"><%= post.user.name  %></a> says: <%= post.content %>
+	      <form action = "/joins" method = "post">
+	        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+	        <input type="hidden" name="join[post_id]" value = "<%= post.id %>">
+	        <input type="submit" disable_with="Please wait..." name="Join" value = "Like">      
+	      </form> 
+		  <a href="/bright_ideas/<%= post.id %>"><%= post.joins.count %> people</a>  like this.</p>
+
+          <% if post.user == current_user %>
+            <form action = "bright_ideas/destroy" method = "post">
+              <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+              <input type="hidden" name="post_id" value="<%=post.id %>">
+              <input type = 'submit' disable_with="Please wait..." value = "Delete">
+            </form>
+          <% end %>
+
+	  <% end %>
+	<% end %>
+
+</div>
